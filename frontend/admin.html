@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Music</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <a href="manage.html" class="view-player-link">Manage Existing Songs</a>
+        <h1>Add New Song</h1>
+        <form id="upload-form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="artist">Artist</label>
+                <input type="text" id="artist" name="artist" required>
+            </div>
+            <div class="form-group">
+                <label for="album">Album</label>
+                <input type="text" id="album" name="album" required>
+            </div>
+            <div class="form-group">
+                <label for="music_file">Music File (.mp3)</label>
+                <input type="file" id="music_file" name="music_file" accept=".mp3" required>
+            </div>
+            <div class="form-group">
+                <label for="cover_art_file">Cover Art (Image)</label>
+                <input type="file" id="cover_art_file" name="cover_art_file" accept="image/*" required>
+            </div>
+            <button type="submit" id="submit-btn">Upload Song</button>
+        </form>
+        <div id="status-message"></div>
+        <a href="index.html" class="view-player-link">View Main Player</a>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>

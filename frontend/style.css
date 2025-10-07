@@ -1,0 +1,161 @@
+/* --- AESTHETIC OVERHAUL FOR STYLE.CSS --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+    color: #fff;
+    overflow: hidden;
+}
+
+.player-container {
+    width: 90%;
+    max-width: 380px;
+    height: 90vh;
+    max-height: 700px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+/* Now Playing Section */
+.now-playing-section { text-align: center; }
+.cover-art-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+}
+#cover-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+#song-title { font-size: 1.5em; font-weight: 600; }
+#song-artist { font-size: 1em; font-weight: 300; opacity: 0.8; }
+
+/* Controls Section */
+.controls-section { margin: 25px 0; }
+.progress-container { width: 100%; }
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #1DB954; /* Spotify Green */
+    border-radius: 5px;
+}
+.time-stamps {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75em;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+.main-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+.control-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.control-btn:hover { transform: scale(1.1); }
+.play-pause {
+    font-size: 36px;
+    width: 60px;
+    height: 60px;
+    background: #1DB954;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.secondary-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.volume-container { display: flex; align-items: center; width: 150px; }
+.volume-container i { opacity: 0.8; margin-right: 10px; }
+.volume-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none; border-radius: 2px;
+}
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 14px; height: 14px;
+    background: #fff; border-radius: 50%; cursor: pointer;
+}
+
+/* Playlist Section */
+.playlist-section { flex-grow: 1; overflow-y: auto; }
+#search-form {
+    position: relative;
+    margin-bottom: 15px;
+}
+#search-form i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+#search-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+#search-input::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+#song-list { list-style: none; }
+#song-list li {
+    padding: 12px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#song-list li:hover { background: rgba(255, 255, 255, 0.1); }
+#song-list li.playing { background: #1DB954; color: #000; }
+#song-list li .title { font-weight: 600; }
+#song-list li .artist { font-size: 0.9em; opacity: 0.8; }
+#song-list li.playing .artist { opacity: 0.7; }
+
+/* Custom Scrollbar */
+.playlist-section::-webkit-scrollbar { width: 6px; }
+.playlist-section::-webkit-scrollbar-track { background: transparent; }
+.playlist-section::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 3px; }
