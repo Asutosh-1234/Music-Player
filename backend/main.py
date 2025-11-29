@@ -8,6 +8,8 @@ from bson import ObjectId
 import os
 import aiofiles
 import shutil
+# 👇 1. THIS IMPORT IS PART OF THE FIX (though not strictly required, it's good practice)
+from fastapi.encoders import jsonable_encoder 
 
 
 MONGO_DETAILS = "mongodb://localhost:27017" 
@@ -36,8 +38,12 @@ class UpdateSong(BaseModel):
     artist: Optional[str] = None
     album: Optional[str] = None
 
-
-app = FastAPI()
+# 👇 2. THIS IS THE MAIN FIX: CONFIGURE THE FASTAPI APP
+app = FastAPI(
+    json_encoders={
+        ObjectId: str
+    }
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -51,8 +57,7 @@ app.add_middleware(
 async def startup_db_client():
     app.mongodb_client = AsyncIOMotorClient(MONGO_DETAILS)
     app.mongodb = app.mongodb_client[DATABASE_NAME]
-    print("Connected to MongoDB!")
-
+    print("✅ Connected to MongoDB!")
 
 
 @app.on_event("shutdown")
@@ -67,10 +72,11 @@ def song_helper(song) -> dict:
         "title": song["title"],
         "artist": song["artist"],
         "album": song["album"],
-        "file_path": f"/static/music/{song['file_name']}",
-        "cover_art_path": f"/static/images/{song['cover_art_name']}"
+        "file_name": song.get("file_name"), # Use .get for safety
+        "cover_art_name": song.get("cover_art_name"),
+        "file_path": f"/static/music/{song.get('file_name')}",
+        "cover_art_path": f"/static/images/{song.get('cover_art_name')}"
     }
-
 
 
 @app.get("/api/songs", response_model=List[Song])
@@ -79,7 +85,6 @@ async def get_all_songs():
     async for song in app.mongodb[SONG_COLLECTION].find():
         songs.append(song_helper(song))
     return songs
-
 
 
 @app.get("/api/songs/search", response_model=List[Song])
@@ -92,7 +97,6 @@ async def search_songs(q: str = Query(..., min_length=1)):
     if not songs:
         raise HTTPException(status_code=404, detail="No songs found")
     return songs
-
 
 
 @app.post("/api/songs/upload")
@@ -118,8 +122,7 @@ async def upload_song(
         "file_name": music_filename, "cover_art_name": cover_art_filename
     }
     await app.mongodb[SONG_COLLECTION].insert_one(song_document)
-    return {"message": "✅ Song uploaded successfully!", "song_details": song_document}
-
+    return {"message": "Song uploaded successfully!", "song_details": song_document}
 
 
 @app.delete("/api/songs/{song_id}")
@@ -146,7 +149,6 @@ async def delete_song(song_id: str):
         return {"message": f"Song {song_id} deleted successfully"}
     
     raise HTTPException(status_code=404, detail=f"Song {song_id} not found")
-
 
 
 @app.put("/api/songs/{song_id}", response_model=Song)
