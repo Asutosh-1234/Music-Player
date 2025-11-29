@@ -1,4 +1,4 @@
-# Gemini Music - Full Stack Project
+# Hello Music - Full Stack Project
 
 A simple music library/player built with a FastAPI backend and a vanilla HTML/CSS/JS frontend. Users can list, search, play, upload, edit, and delete songs. Static audio files and cover images are served from the backend.
 
