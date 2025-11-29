@@ -144,8 +144,3 @@ uvicorn main:app --reload --host 127.0.0.1 --port 8000
 - Pagination and better search
 - Docker compose for API + MongoDB
 
-## Contributing
-- Open issues and PRs are welcome. Please describe the change and test steps.
-
-## License
-Add your license here (e.g., MIT). 
